@@ -1,20 +1,11 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { auth, signIn, signOut } from "../../../auth";
+import React from "react";
+import { auth, signIn, signOut  } from "../../../auth";
+const Navbar = async() => {
 
-const Navbar = () => {
-  const [session, setSession] = useState(null);
-
-  useEffect(() => {
-    const fetchSession = async () => {
-      const userSession = await auth();
-      setSession(userSession);
-    };
-    fetchSession();
-  }, []);
+    const session =await auth()
+  
 
   return (
     <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
@@ -32,17 +23,24 @@ const Navbar = () => {
               <Link href="/startup/create">
                 <span>Create</span>
               </Link>
-              <button onClick={() => signOut()}>
+              <form action={async() => {
+                'use server';
+                await signOut({ callbackUrl: "/" })}}>
                 <span>Logout</span>
-              </button>
+              </form>
               <Link href={`/user/${session?.id}`}>
                 <span>{session?.user?.name}</span>
               </Link>
             </>
           ) : (
-            <button onClick={async() =>await  signIn("github")}>
-              <span>Login</span>
+            <form action={async ()=>{
+                'use server'
+                await signIn("github");
+            }}>
+            <button type="submit">
+              Login
             </button>
+            </form>
           )}
         </div>
       </nav>
