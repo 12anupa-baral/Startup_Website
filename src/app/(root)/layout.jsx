@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar'
 
 const layout = ({children}) => {
   return (
-    <main className='font-work-sans'>
+    <main className='font-workSans'>
         <Navbar/>
         {children}
     </main>

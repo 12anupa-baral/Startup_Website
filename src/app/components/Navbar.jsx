@@ -8,7 +8,7 @@ const Navbar = async() => {
   
 
   return (
-    <header className="px-5 py-3 bg-white shadow-sm font-work-sans">
+    <header className="px-5 py-3 bg-white shadow-sm font-workSans">
       <nav className="flex justify-between items-center">
         <ul className="flex justify-between items-center">
           <li>
@@ -26,7 +26,8 @@ const Navbar = async() => {
               <form action={async() => {
                 'use server';
                 await signOut({ callbackUrl: "/" })}}>
-                <span>Logout</span>
+                  <button type="submit" className="bg-red-500 hover:bg-red-700 p-2 rounded-xl text-white">Logout</button>
+                 {/* <span>Logout</span> */}
               </form>
               <Link href={`/user/${session?.id}`}>
                 <span>{session?.user?.name}</span>
