@@ -7,7 +7,7 @@ export const startup = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "slup",
+      name: "slug",
       title: "slug",
       type: "slug",
       options: {
