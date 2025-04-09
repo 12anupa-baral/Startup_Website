@@ -170,30 +170,34 @@ export type Markdown = string;
 
 export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | SanityAssetSourceData | Startup | Slug | Author | Markdown;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./src/lib/queries.ts
+// Source: ./src/sanity/lib/queries.ts
 // Variable: STARTUPS_QUERY
-// Query: *[_type == "startup" && defined(slug.current)] |order(_createdAt desc) {  _id,  title,  slug,  _createdAt,  author,  views,  description,  category,  image}
+// Query: *[_type == "startup" && defined(slug.current)] |order(_createdAt desc) {   _id,    _type,    _createdAt,    _updatedAt,    _rev,    title,    slug,    views,    description,    category,    image,    pitch,    author->{  _id,  _type,  name,  image}}
 export type STARTUPS_QUERYResult = Array<{
   _id: string;
+  _type: "startup";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
   title: string | null;
   slug: Slug | null;
-  _createdAt: string;
-  author: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "author";
-  } | null;
   views: number | null;
   description: string | null;
   category: string | null;
   image: string | null;
+  pitch: string | null;
+  author: {
+    _id: string;
+    _type: "author";
+    name: string | null;
+    image: string | null;
+  } | null;
 }>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"startup\" && defined(slug.current)] |order(_createdAt desc) {\n  _id,\n  title,\n  slug,\n  _createdAt,\n  author,\n  views,\n  description,\n  category,\n  image\n}\n": STARTUPS_QUERYResult;
+    "*[_type == \"startup\" && defined(slug.current)] |order(_createdAt desc) {\n   _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    slug,\n    views,\n    description,\n    category,\n    image,\n    pitch,\n    author->{\n  _id,\n  _type,\n  name,\n  image\n}\n\n}\n": STARTUPS_QUERYResult;
   }
 }
