@@ -194,17 +194,18 @@ export type STARTUPS_QUERYResult = Array<{
   } | null;
 }>;
 // Variable: STARTUP_BY_ID_QUERY
-// Query: *[_type == "startup" && _id ==$id][0]{    _id,    title,    slug,    _createdAt,    author,    views,    description,    category,    image,      pitch  }
+// Query: *[_type == "startup" && _id ==$id][0]{    _id,    title,    slug,    _createdAt,     author->{      _id,      _type,      name,      image,      userName    },    views,    description,    category,    image,      pitch  }
 export type STARTUP_BY_ID_QUERYResult = {
   _id: string;
   title: string | null;
   slug: Slug | null;
   _createdAt: string;
   author: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "author";
+    _id: string;
+    _type: "author";
+    name: string | null;
+    image: string | null;
+    userName: string | null;
   } | null;
   views: number | null;
   description: string | null;
@@ -218,6 +219,6 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type == \"startup\" && defined(slug.current) && (!defined($search) || category match $search || title match $search || author->name match $search)] | order(_createdAt desc) {\n    _id,\n    _type,\n    _createdAt,\n    _updatedAt,\n    _rev,\n    title,\n    slug,\n    views,\n    description,\n    category,\n    image,\n    pitch,\n    author->{\n      _id,\n      _type,\n      name,\n      image\n    }\n  }": STARTUPS_QUERYResult;
-    "\n  *[_type == \"startup\" && _id ==$id][0]{\n    _id,\n    title,\n    slug,\n    _createdAt,\n    author,\n    views,\n    description,\n    category,\n    image,\n      pitch\n  }": STARTUP_BY_ID_QUERYResult;
+    "\n  *[_type == \"startup\" && _id ==$id][0]{\n    _id,\n    title,\n    slug,\n    _createdAt,\n     author->{\n      _id,\n      _type,\n      name,\n      image,\n      userName\n    },\n    views,\n    description,\n    category,\n    image,\n      pitch\n  }": STARTUP_BY_ID_QUERYResult;
   }
 }
