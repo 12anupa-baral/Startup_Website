@@ -17,6 +17,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!post) return notFound();
 
   const parsedContent = md.render(post?.pitch || "");
+  console.log("image", post);
   return (
     <>
       <section className="pink_container pattern !min-h[230px]">
