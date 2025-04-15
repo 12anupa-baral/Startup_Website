@@ -1,13 +1,14 @@
 import React from "react";
-import { formateDate } from "@/lib/utils";
+import { cn, formateDate } from "@/lib/utils";
 import { EyeIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { Author,Startup } from "@/sanity/types";
-export type StartupTypeCard =Omit<Startup ,"author"> & {author?:Author};
+import { Author, Startup } from "@/sanity/types";
+import { Skeleton } from "./ui/skeleton";
+export type StartupTypeCard = Omit<Startup, "author"> & { author?: Author };
 
-const StartupCard = ({ post }:{post:StartupTypeCard}) => {
+const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   const {
     _createdAt,
     views,
@@ -38,7 +39,7 @@ const StartupCard = ({ post }:{post:StartupTypeCard}) => {
         </div>
         <Link href={`/user/${author?._id}`}>
           <Image
-            src="/author.png"
+            src={author?.image}
             alt="author"
             width={48}
             height={20}
@@ -59,17 +60,25 @@ const StartupCard = ({ post }:{post:StartupTypeCard}) => {
       </Link>
       <div className="flex justify-between items-center gap-3 mt-5">
         <Link href={`/query=${category.toLowerCase()}`}>
-        <p className="text-16-medium">{category}</p>
+          <p className="text-16-medium">{category}</p>
         </Link>
-        
+
         <Button className="startup-card_btn" asChild>
-            <Link href={`/startup/${_id}`}>
-            Details
-            </Link>
+          <Link href={`/startup/${_id}`}>Details</Link>
         </Button>
       </div>
     </li>
   );
 };
+
+export const StartupCardSkeleton = () => (
+  <>
+    {[0, 1, 2, 3, 4].map((index: number) => (
+      <li key={cn("skeleton", index)}>
+        <Skeleton className="startup-card_skeleton" />
+      </li>
+    ))}
+  </>
+);
 
 export default StartupCard;

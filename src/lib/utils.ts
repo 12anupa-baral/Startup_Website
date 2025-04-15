@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from "clsx"
+import { clsx, type ClassValue } from "clsx";
 import { ReceiptRussianRuble } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
@@ -17,4 +17,3 @@ export function formateDate(_createdAt: any) {
 export default function parseServerActionResponse<T>(response: T) {
   return JSON.parse(JSON.stringify(response));
 }
-

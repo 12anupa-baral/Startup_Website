@@ -13,7 +13,7 @@ const Navbar = async() => {
         <ul className="flex justify-between items-center">
           <li>
             <Link href="/">
-              <Image src="/yc_logo.png" alt="logo" width={150} height={150} />
+              <Image src="/logo.png" alt="logo" width={150} height={150} />
             </Link>
           </li>
         </ul>
@@ -23,24 +23,32 @@ const Navbar = async() => {
               <Link href="/startup/create">
                 <span>Create</span>
               </Link>
-              <form action={async() => {
-                'use server';
-                await signOut({ callbackUrl: "/" })}}>
-                  <button type="submit" className="bg-red-500 hover:bg-red-700 p-2 rounded-xl text-white">Logout</button>
-                 {/* <span>Logout</span> */}
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut({ callbackUrl: "/" });
+                }}
+              >
+                <button
+                  type="submit"
+                  className="bg-red-500 hover:bg-red-700 p-2 rounded-xl text-white"
+                >
+                  Logout
+                </button>
+                {/* <span>Logout</span> */}
               </form>
               <Link href={`/user/${session?.id}`}>
                 <span>{session?.user?.name}</span>
               </Link>
             </>
           ) : (
-            <form action={async ()=>{
-                'use server'
+            <form
+              action={async () => {
+                "use server";
                 await signIn("github");
-            }}>
-            <button type="submit">
-              Login
-            </button>
+              }}
+            >
+              <button type="submit">Login</button>
             </form>
           )}
         </div>
